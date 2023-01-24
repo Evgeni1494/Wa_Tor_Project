@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Fichiers a ignorer
+
+Fish_Classes.ipynb
+General_Classes.ipynb
+Shark_CLasses.ipynb
+
 # Distribution / packaging
 .Python
 build/
