@@ -1,0 +1,2 @@
+poisson = "🐟"
+requin = "🦈"
