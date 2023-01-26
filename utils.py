@@ -4,43 +4,22 @@ tous_les_requins = []
 
 class Wator:
     def initialisation(self, nombre_de_thons: int, nombre_de_requins):
-        # self.nombre_de_thons = nombre_de_thons
-        # self.nombre_de_requins = nombre_de_requins
-        # thon = Thon(random.randint(0,9),random.randint(0,9))
-        # for i  in range(Wator.nombre_de_thons-1):
-        #     xthon = random.randint(0,9)
-        #     ython = random.randint(0,9)
-        #     xthon_ython = zip(xthon, ython)
-        #     while Grille.position[xthon][ython] == "░░":
-        #         thon = Thon(xthon, ython)
-        #         tous_les_thons.append(thon)
-        #         break
 
-        
-        # for i  in range(Wator.nombre_de_requins):
-        #     # while Grille.position != Thon.emote:
-        #     requin = Requin(random.randint(0,9),random.randint(0,9))
-        #     tous_les_requins.append(requin)
-        
         self.nombre_de_thons = nombre_de_thons
         self.nombre_de_requins = nombre_de_requins
-        xthon = [random.randint(0, 9) for _ in range(Wator.nombre_de_thons)]
-        ython = [random.randint(0, 9) for _ in range(Wator.nombre_de_thons)]
-        
-        xrequin = [random.randint(0, 9) for _ in range(nombre_de_requins)]
-        yrequin = [random.randint(0, 9) for _ in range(nombre_de_requins)]
-        for x, y in zip(xthon, ython):
-            thon = Thon(x, y)
-            tous_les_thons.append(thon)
-        for x2, y2 in zip(xrequin, yrequin):
-            requin = Requin(x2, y2)
-            tous_les_requins.append(requin)
 
-        for thon in tous_les_thons:
-            Grille.position[thon.x][thon.y] = Thon.emote
-        for requin in tous_les_requins:
-            Grille.position[requin.x][requin.y] = Requin.emote
-
+        while len(tous_les_thons) < nombre_de_thons:
+                xthon = random.randint(0,9)
+                ython = random.randint(0,9)
+                if Grille.case_libre(xthon, ython) == True:
+                    Thon.set(xthon, ython)
+                    
+        while len(tous_les_requins) < nombre_de_requins:
+                xrequin = random.randint(0,9)
+                yrequin = random.randint(0,9)
+                if Grille.case_libre(xrequin, yrequin) == True:
+                    Requin.set(xrequin, yrequin)
+                    
 
 class Grille:
     position = []
@@ -50,7 +29,7 @@ class Grille:
             position[rangee].append("░░")
     
 
-    def afficher():
+    def afficher() -> str:
         affichage = ""
         for i in range(10):
             affichage += "\n"
@@ -61,6 +40,13 @@ class Grille:
     def set(x: int, y: int):
         return Grille.position[x][y]
     
+    def case_libre(x: int, y: int) -> bool:
+        if Grille.position[x][y] == "░░":
+            return True
+        else:
+            return False
+        
+    
 
         
 class Thon:
@@ -70,18 +56,24 @@ class Thon:
         self.y = y
         self.reproduction = 10
         
-        def set(x, y):
-            thon = Thon(x, y)
-            tous_les_thons.append(thon)
+    def set(x: int, y: int):
+        thon = Thon(x, y)
+        Grille.position[x][y] = Thon.emote
+        tous_les_thons.append(thon)
         
 class Requin(Thon):
     emote = "🦈"
+    
+    def set(x: int, y: int):
+        requin = Requin(x, y)
+        Grille.position[x][y] = Requin.emote
+        tous_les_requins.append(Thon)
         
 shark = Requin(3,5)
     
     
 
-
+Thon.set(1,1)
     
 
 
