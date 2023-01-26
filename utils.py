@@ -3,11 +3,32 @@ tous_les_thons = []
 tous_les_requins = []
 
 class Wator:
-    def initialisation():
-        xthon = [random.randint(0, 9) for _ in range(10)]
-        ython = [random.randint(0, 9) for _ in range(10)]
-        xrequin = [random.randint(0, 9) for _ in range(5)]
-        yrequin = [random.randint(0, 9) for _ in range(5)]
+    def initialisation(self, nombre_de_thons: int, nombre_de_requins):
+        # self.nombre_de_thons = nombre_de_thons
+        # self.nombre_de_requins = nombre_de_requins
+        # thon = Thon(random.randint(0,9),random.randint(0,9))
+        # for i  in range(Wator.nombre_de_thons-1):
+        #     xthon = random.randint(0,9)
+        #     ython = random.randint(0,9)
+        #     xthon_ython = zip(xthon, ython)
+        #     while Grille.position[xthon][ython] == "░░":
+        #         thon = Thon(xthon, ython)
+        #         tous_les_thons.append(thon)
+        #         break
+
+        
+        # for i  in range(Wator.nombre_de_requins):
+        #     # while Grille.position != Thon.emote:
+        #     requin = Requin(random.randint(0,9),random.randint(0,9))
+        #     tous_les_requins.append(requin)
+        
+        self.nombre_de_thons = nombre_de_thons
+        self.nombre_de_requins = nombre_de_requins
+        xthon = [random.randint(0, 9) for _ in range(Wator.nombre_de_thons)]
+        ython = [random.randint(0, 9) for _ in range(Wator.nombre_de_thons)]
+        
+        xrequin = [random.randint(0, 9) for _ in range(nombre_de_requins)]
+        yrequin = [random.randint(0, 9) for _ in range(nombre_de_requins)]
         for x, y in zip(xthon, ython):
             thon = Thon(x, y)
             tous_les_thons.append(thon)
@@ -48,6 +69,10 @@ class Thon:
         self.x = x
         self.y = y
         self.reproduction = 10
+        
+        def set(x, y):
+            thon = Thon(x, y)
+            tous_les_thons.append(thon)
         
 class Requin(Thon):
     emote = "🦈"
