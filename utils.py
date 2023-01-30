@@ -94,6 +94,11 @@ class Poisson:
             self.compteur = 0
 
     def choisir_une_cible_et_bouger(self,liste_voisins):
+        """_summary_
+            choisis une case aleatoirement
+        Args:
+            liste_voisins (_type_): listes des cases accessibles
+        """
         cible = rd.choice(liste_voisins)
         # fait bouger le requin vers cette cible
         self.ancien_x = self.x
