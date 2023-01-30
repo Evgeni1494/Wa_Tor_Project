@@ -2,26 +2,38 @@ import random as rd
 
 class Grille:
 
-    def __init__(self,x_len,y_len):
-        self.x_len = x_len  # Hauteur (commence en haut à 0) le nombre de liste
-        self.y_len = y_len  # Largeur (commence à gauche à 0) le nombre d'élement dans chaque liste
+    def __init__(self,x_len: int,y_len: int):
+        """_summary_
+            genere la taille de la grille
+        Args:
+            x_len (_type_): integer du nombre de rangées voulues
+            y_len (_type_): integer du nombre de colonnes voulues
+        """
+        self.x_len = x_len
+        self.y_len = y_len
         self.grille = self.create_grille()
 
     def create_grille(self)->list:
-        
+        """_summary_
+            genere le contenu d'une grille orthodonnée
+        Returns: 
+            list: liste de liste des caractères qui composent la grille
+        """
         grille=[]
-        
         row = []
         for j in range(self.y_len):
             row.append("░░")
-        
         for i in range(self.x_len):
             grille.append(row.copy())
-        
         return grille
 
     def update(self,liste_poisson,liste_requin):
-        
+        """_summary_
+            permet de rafraichir les elements de la grille 
+        Args:
+            liste_poisson (_type_): liste à jour des coordonnées des poissons
+            liste_requin (_type_): liste à jour des coordonnées des requins
+        """
         self.grille = self.create_grille()
 
         for poisson in liste_poisson:
@@ -31,8 +43,12 @@ class Grille:
         for requin in liste_requin:
             self.grille[requin.x][requin.y] = "🦈"
 
-    def __repr__ (self):
-
+    def __repr__ (self) -> str:
+        """_summary_
+            genere un affichage de la grille
+        Returns:
+            str : composé de tous les elements de la grille
+        """
         affichage = ""
         for rangée in range(self.x_len):
             affichage += "\n" 
@@ -48,6 +64,12 @@ class Poisson:
     nb_de_tour_pour_reproduction = 0
 
     def __init__(self,x,y):
+        """_summary_
+            initialise un poisson avec ses coordonnées x et y
+        Args:
+            x (_type_): position verticale
+            y (_type_): position horizontale
+        """
         self.x = x
         self.y = y
 
@@ -57,6 +79,12 @@ class Poisson:
         self.compteur = 0
 
     def se_reproduire(self,bebe_list,class_de_poisson):
+        """_summary_
+            genere un nouveau poisson sur la case du poisson parent avant qu'il ne se deplace
+        Args:
+            bebe_list (_type_): liste de tous les nouveaux poissons generés sur le tour en cours
+            class_de_poisson (_type_): class de l'instance. en l'occurence poisson ou requin
+        """
         if self.compteur == self.nb_de_tour_pour_reproduction:
             # crée un enfant
             bebe = class_de_poisson(self.ancien_x, self.ancien_y)
