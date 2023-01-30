@@ -117,7 +117,7 @@ class Jeu:
                 print("tous les requins sont morts")
                 print (" tour ", self.tour)
                 jeu_non_termine = False
-            elif self.tour == 150:
-                print("Vous avez attient le tour 150, cest un bel équilibre")
+            elif self.tour == 10000:
+                print("Vous avez attient le tour 10000, cest un bel équilibre")
                 jeu_non_termine = False
 
