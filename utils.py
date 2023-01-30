@@ -109,6 +109,14 @@ class Poisson:
 
 
     def coord_voisins(self,grille):
+        """_summary_
+            regarde le contenu des cases au-dessus, en dessous, à gauche et à droite
+        Args:
+            grille (_type_): grille à utiliser
+
+        Returns:
+            _type_: retourne un dictionnaire contenant les coordonnées des cases alentour
+        """
         if self.x !=0:
             up = (self.x-1,self.y)
         else:
@@ -139,34 +147,36 @@ class Poisson:
         return dictionnaire_coord_voisin
 
     def move(self,grille,bebe_poisson_list):
-
+        """_summary_
+            deplace l'instance de poisson en verifiant les coordonnees des cases autour
+            le fait se reproduire si le compteur est à 0
+            
+        Args:
+            grille (_type_): grille à utiliser
+            bebe_poisson_list (_type_): liste des poissons generes sur ce tour
+        """
             # un tour à lieu pour le requin
-            self.compteur+=1
+        self.compteur+=1
 
             # Je recherche les coordonées des voisins
-            dict_coord_voisin = self.coord_voisins(grille)
+        dict_coord_voisin = self.coord_voisins(grille)
 
 
             # Trier les coordonnées des voisins en fonction de poisson et vide
-            liste_des_cases_autour_vides = []
+        liste_des_cases_autour_vides = []
 
 
-            for i , j in dict_coord_voisin.values():
-                if grille.grille[i][j] == "░░":
+        for i , j in dict_coord_voisin.values():
+            if grille.grille[i][j] == "░░":
                     liste_des_cases_autour_vides.append((i,j))
 
-            if len(liste_des_cases_autour_vides)>0:
+        if len(liste_des_cases_autour_vides)>0:
                 
-                self.choisir_une_cible_et_bouger(liste_des_cases_autour_vides)
+            self.choisir_une_cible_et_bouger(liste_des_cases_autour_vides)
                     
                 
                 # il se reproduit
-                self.se_reproduire(bebe_poisson_list,Poisson)
-
-
-
-
-
+            self.se_reproduire(bebe_poisson_list,Poisson)
 
 
 class Requin(Poisson):
@@ -175,11 +185,24 @@ class Requin(Poisson):
     start_energy = 0
     
     def __init__(self,x,y):
+        """_summary_
+            genere un nouveau requin avec ses coordonnées x et y
+        Args:
+            x (_type_): sa position verticale
+            y (_type_): sa position horizontale
+        """
         super().__init__(x,y)
 
         self.energy = self.start_energy
         
     def manger(self,une_liste_de_poissons):
+        """_summary_
+            simule lesrequins qui mangent les poissons
+            Redonne de l'energie aux requins
+            Fais disparaitre les poissons mangés de la liste de tous les poissons et donc de la grille
+        Args:
+            une_liste_de_poissons (_type_): liste des poissons encore en vie
+        """
          # ajouter et enlever de l'energie au requin
         self.energy += self.energy_par_poisson
             
@@ -190,12 +213,26 @@ class Requin(Poisson):
 
 
     def mourir(self,une_liste_de_requins):
+        """_summary_
+            Si un requin n'a plus d'energie, il meurt et ses données sont effacées
+        Args:
+            une_liste_de_requins (_type_): liste des requins en vie
+        """
         if self.energy == 0:
             une_liste_de_requins.remove(self)
 
 
     def move(self,grille:Grille,une_liste_de_poissons,bebe_requin_list,une_liste_de_requins):
-
+        """_summary_
+            Choisis le deplacement du requin
+            Si au moins un thon est sur une case autor, il choisis en priorité une case aleatoire comportant un poisson
+            Sinon si au moins une vase autour est vide il choisis une case aleatore vide
+        Args:
+            grille (Grille): grille à utiliser pour se deplacer
+            une_liste_de_poissons (_type_): liste de tous les poissons encore en vie
+            bebe_requin_list (_type_): liste des nouveaux requins generés sur ce tour
+            une_liste_de_requins (_type_): liste des requins encore en vie
+        """
         # un tour à lieu pour le requin il veillit et perd de l'energy
         self.compteur+=1
         self.energy -= 1
@@ -247,31 +284,3 @@ class Requin(Poisson):
 
 
             
-import random as rd
-
-
-
-def create_animal_lists(x_len,y_len,nb_poisson,nb_requin):
-    mon_set=set()
-    while len(mon_set) < nb_poisson + nb_requin:
-        x = rd.randint(0,x_len-1)
-        y = rd.randint(0,y_len-1)
-        coord = (x,y)
-        mon_set.add(coord)
-
-
-    liste_poisson = []
-    liste_requin = []
-
-
-
-    for coord in list(mon_set)[0:nb_poisson]:
-        liste_poisson.append( Poisson(coord[0],coord[1]))
-
-    for coord in list(mon_set)[nb_poisson :  ]:
-        liste_requin.append( Requin(coord[0],coord[1]))
-
-    return liste_poisson, liste_requin
-
-
-# print(len(list(mon_set)[nb_poisson:len(mon_set)]))

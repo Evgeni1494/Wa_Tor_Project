@@ -1,7 +1,7 @@
 from jeu import Jeu
 
 dictionnaire_de_param = {
-    "x_len" : 20,
+    "x_len" : 20, #hauteur de la grille
     "y_len" : 20,
     "nb_requins" : 10,
     "nb_poissons" : 80,
