@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Fichiers a ignorer
-
+Detaille_conception.ipynb
 
 
 # Distribution / packaging
